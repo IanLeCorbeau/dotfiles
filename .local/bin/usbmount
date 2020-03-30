@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DRIVES=$(lsblk -lp | grep "part $1" | awk '{print $1, "(" $4 ")"}' | dmenu -p mount)
+
+for i in ${DRIVES}; do
+	udisksctl mount -b $i
+	exit 1
+done

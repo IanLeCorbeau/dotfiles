@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0 -c:v libx264 -crf 0 -preset ultrafast ~/Videos/screens/$1.mkv
