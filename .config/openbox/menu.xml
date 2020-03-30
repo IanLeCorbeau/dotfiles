@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/                 file:///usr/share/openbox/menu.xsd">
+	<menu id="root-menu" label="Openbox 3">
+                <separator label="= Quick Launch ="/>
+		<item label="Terminal emulator">
+			<action name="Execute">
+				<execute>/usr/local/bin/st</execute>
+			</action>
+		</item>
+		<item label="Web browser">
+			<action name="Execute">
+				<execute>firefox</execute>
+			</action>
+		</item>
+		<item label="File Manager">
+			<action name="Execute">
+				<execute>/usr/bin/pcmanfm</execute>
+			</action>
+		</item>
+		<item label="VLC Media Player">
+			<action name="Execute">
+				<execute>vlc</execute>
+			</action>
+		</item>
+		<item label="Dmenu">
+			<action name="Execute">
+				<execute>dmenu_run -p Run -h 28</execute>
+			</action>
+		</item>
+                <separator label="= Places ="/>
+                <menu id="home" label="Home Folder">
+                <item label="Home">
+                        <action name="Execute">
+				<execute>/usr/bin/pcmanfm -n ~/</execute>
+                        </action>
+                </item>                
+                <item label="Documents">
+                        <action name="Execute">
+				<execute>/usr/bin/pcmanfm -n ~/Documents</execute>
+                        </action>
+                </item>
+                <item label="Downloads">
+                        <action name="Execute">
+				<execute>/usr/bin/pcmanfm -n ~/Downloads</execute>
+                        </action>
+                </item>
+                <item label="Pictures">
+                        <action name="Execute">
+				<execute>/usr/bin/pcmanfm -n ~/Pictures</execute>
+                        </action>
+                </item>
+                <item label="Videos">
+                        <action name="Execute">
+				<execute>/usr/bin/pcmanfm -n ~/Videos</execute>
+                        </action>
+                </item>
+                </menu>
+                <item label="Filesystem Root">
+                        <action name="Execute">
+				<execute>/usr/bin/pcmanfm -n ranger /</execute>
+                        </action>
+                </item>
+                <item label="Trash">
+                        <action name="Execute">
+				<execute>/usr/bin/pcmanfm -n ~/.local/share/Trash/files</execute>
+                        </action>
+			</item>
+
+		
+                <separator label="= Settings ="/>
+		<menu id="Monitors" label="Monitors">
+		<item label="PC Monitor">
+			<action name="Execute">
+				<execute>/usr/bin/xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-1 --off</execute>
+			</action>
+		</item>
+		<item label="TV">
+			<action name="Execute">
+				<execute>/usr/bin/xrandr --output HDMI-1 --primary --mode 1360x768 --output DP-1 --off</execute>
+			</action>
+		</item>
+		<item label="Dual Monitors">
+			<action name="Execute">
+				<execute>/usr/bin/xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-1 --mode 1360x768 --left-of DP-1</execute>
+			</action>
+		</item>
+		</menu>
+		<menu id="Configuration" label="Configuration">
+                <item label="Config Files">
+                        <action name="Execute">
+				<execute>/usr/local/bin/st -e ranger ~/.config</execute>
+                        </action>
+                </item>
+		<item label="Openbox Configuration Manager">
+			<action name="Execute">
+				<execute>obconf</execute>
+			</action>
+		</item>
+		<item label="Reconfigure">
+			<action name="Reconfigure"/>
+		</item>
+		<item label="Restart">
+			<action name="Restart"/>
+		</item>
+		<item label="Tint2 Configuration">
+			<action name="Execute">
+				<execute>tint2conf</execute>
+			</action>
+		</item>
+                </menu>
+
+                <separator label="= System ="/>
+		<menu id="session" label="Session/Logout">
+		<item label="Logout">
+			<action name="Exit"/>
+		</item>
+		<item label="Reboot">
+			<action name="Execute">
+				<prompt>
+                                Are you sure you want to reboot?
+                            </prompt>
+				<execute>
+                                    systemctl reboot
+                                </execute>
+			</action>
+		</item>
+		<item label="Shutdown">
+			<action name="Execute">
+				<prompt>
+                                Are you sure you want to shutdown?
+                            </prompt>
+				<execute>
+                                    systemctl poweroff
+                                </execute>
+			</action>
+		</item>  
+                </menu>           
+	</menu>
+</openbox_menu>

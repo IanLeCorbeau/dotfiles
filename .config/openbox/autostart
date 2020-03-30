@@ -1,0 +1,19 @@
+# Compositor
+picom -b &
+
+# Wallpaper
+xwallpaper --output DP-1 --stretch ~/Pictures/Wallpapers/wallpaper0002.jpg &
+xwallpaper --output HDMI-1 --stretch ~/Pictures/Wallpapers/wallpaper0002.jpg &
+
+# Keybindings
+xbindkeys &
+
+# Notifications
+dunst &
+
+# Polkit
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Panel
+~/.local/bin/launch.sh &
+
