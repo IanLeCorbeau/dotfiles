@@ -419,7 +419,7 @@
         <y>-5</y>
       </action>
     </keybind>
-    <keybind key="A-minus">
+    <keybind key="W-A-minus">
       <action name="ResizeRelative">
         <left>-5</left>
         <right>-5</right>
@@ -427,7 +427,7 @@
         <bottom>-2</bottom>
       </action>
     </keybind>
-    <keybind key="A-equal">
+    <keybind key="W-A-equal">
       <action name="ResizeRelative">
         <left>5</left>
         <right>5</right>
@@ -480,8 +480,8 @@
       <action name="MoveResizeTo">
         <x>center</x>
         <y>center</y>
-        <width>85%</width>
-        <height>95%</height>
+        <width>99%</width>
+        <height>99%</height>
       </action>
     </keybind>
     <!-- Move the Current Window to the Left Half of the Screen -->
@@ -591,10 +591,10 @@
     <keybind key="C-W-h">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <width>98%</width>
+        <width>99%</width>
         <height>49%</height>
       </action>
-      <action name="MaximizeHorz"/>
+      <action name="UnmaximizeHorz"/>
       <action name="MoveResizeTo">
         <x>12</x>
         <y>10</y>
@@ -605,10 +605,10 @@
         <finalactions>
           <action name="UnmaximizeFull"/>
           <action name="MoveResizeTo">
-            <width>98%</width>
+            <width>99%</width>
             <height>49%</height>
           </action>
-          <action name="MaximizeHorz"/>
+          <action name="UnmaximizeHorz"/>
           <action name="MoveResizeTo">
             <x>-12</x>
             <y>-10</y>
