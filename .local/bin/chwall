@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Change Wallpaper, by Ian LeCorbeau
+
+if [ -z "$1" ]; then
+	echo "You must specify an image. Ex: chwall path/to/image.jpg"
+else
+	ln -sf "$1" ~/Pictures/defwall.jpg && xwallpaper --stretch ~/Pictures/defwall.jpg
+fi
