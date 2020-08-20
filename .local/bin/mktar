@@ -1,15 +1,13 @@
 #!/bin/sh
 
-if [ $1 = "-c" ]; then
-	for file in $2; do
-		tar -c -f $2.tar.gz --owner=0 --group=0 $2
-		sleep 1
-	done
-elif [ $1 = "-d" ]; then
-	for file in $2; do
-		tar -xvf $2
-		sleep 1
-	done
+if [ "$1" = "-c" ]; then
+		tar -c -f "$2".tar.gz --owner=0 --group=0 $2
+		exit 1
+
+elif [ "$1" = "-d" ]; then
+		tar -xvf "$2"
+		exit 1
+
 else
 	echo "You must provide an option: -c to compress, -d to decompress."
 fi
