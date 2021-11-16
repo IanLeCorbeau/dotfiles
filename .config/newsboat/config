@@ -1,0 +1,14 @@
+refresh-on-startup yes
+
+browser "firefox %u"
+
+#external-url-viewer "urlview"
+
+bind-key : macro-prefix
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+
+# Copy link to clipboard
+macro c set browser "echo %u | xclip" ; open-in-browser ; set browser "firefox %u"

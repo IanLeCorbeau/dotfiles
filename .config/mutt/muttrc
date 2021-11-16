@@ -1,0 +1,73 @@
+#-------- Basic Config {{{
+#--------------------------------
+set ssl_starttls = yes
+set ssl_force_tls = yes
+set imap_check_subscribed = yes
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set move = no
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+set tilde
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+unset record
+# }}}
+
+# Account 1
+source "~/.config/mutt/account.no1"
+folder-hook $folder 'source ~/.config/mutt/account.no1'
+
+# Switch Account macros
+macro index,pager <f12> '<sync-mailbox><imap-logout-all><enter-command>source ~/.config/mutt/account.no1<enter><change-folder>!<enter>'
+macro index,pager <f11> '<sync-mailbox><enter-command>source ~/.config/mutt/account.no2<enter><change-folder>!<enter>'
+
+bind index G imap-fetch-mail
+
+#mailboxes "+-- My Mailbox -----------"
+set sidebar_visible = yes
+set sidebar_width = 25
+set sidebar_short_path = yes
+set sidebar_folder_indent = yes
+set sidebar_indent_string = '  '
+set sidebar_divider_char = '|'
+set sidebar_new_mail_only = no
+
+# Sidebar Navigation-------------
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open 
+
+#-------- Color Theme {{{
+#--------------------------------
+color hdrdefault cyan default
+color attachment yellow default
+
+color header color7 default "From: "
+color header brightyellow default "Subject: "
+color header brightyellow default "Date: "
+
+color quoted green default
+color quoted1 cyan default
+color quoted2 green default
+color quoted3 cyan default
+
+color error	red	default
+color message	white	default
+color indicator	black	blue
+color status	green	black
+color tree	red	default
+color search	white	default
+color markers	red	default
+color tilde	yellow	default
+
+color index yellow 	default	'~O'
+color index green	default	'~N'
+color index brightred	default	'~F'
+color index blue	default '~D'
+color index yellow	default	'~U'
+color index white	default	'~R'
+# }}}

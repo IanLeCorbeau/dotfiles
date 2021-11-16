@@ -1,0 +1,18 @@
+unmailboxes *
+set imap_user = ""
+set imap_pass = 
+set folder=imaps:
+set smtp_url = "smtp:"
+set smtp_pass = 
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set header_cache = ~/.config/mutt/account.no1/cache/headers
+set certificate_file = ~/.config/mutt/account.no1/certificates
+set ssl_starttls = yes
+set ssl_force_tls = yes
+set from = ""
+set realname = ""
+#set imap_check_subscribed = "yes"
+set editor = vim
+
+account-hook $folder "set imap_user="

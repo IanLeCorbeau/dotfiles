@@ -1,0 +1,17 @@
+unmailboxes *
+set imap_user = ""
+set imap_pass = 
+set folder=imaps:
+set smtp_url = "smtps:"
+set smtp_pass = 
+set spoolfile = "+INBOX"
+set trash = "+Trash"
+set postponed = "+Drafts"
+set from = ""
+set realname = ""
+#set imap_check_subscribed = "yes"
+mailboxes =Inbox
+
+set editor = vim
+
+account-hook imaps: "set imap_user = "

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nmcli con up id "$(nmcli -t -f name c | dmenu -p Connect)" && notify-send "Connected to $(nmcli -t -f name c)"

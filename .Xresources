@@ -1,13 +1,59 @@
-!! DWM Theming
-dwm.normbodercolor: #444444
-dwm.normbgcolor: #222222
-dwm.normfgcolor: #bbbbbb
-dwm.selbordercolor: #5294E2
-dwm.selbgcolor: #5294E2
-dwm.selffgcolor: #eeeeee
-dwm.titlebordercolor: #5294E2 
-dwm.titlebgcolor: #161616
-dwm.titlefgcolor: #5294E2
+!!Xterm Theming
+!XTerm*termName:	xterm-256color
+XTerm*background:	#161616
+XTerm*foreground:	#eeeeee
+xterm*scrollBar:	false
+XTerm*toolBar:		false
+XTerm*faceName:		spleen
+XTerm*faceSize:		12
+
+!! Black
+XTerm*color0:		#161616
+
+!! Red3
+XTerm*color1:		#cc241d
+
+!! Green3
+XTerm*color2:		#98971a
+
+!! Yellow3
+XTerm*color3:		#d79921
+
+!! Blue2
+XTerm*color4:		#458588
+
+!! Magenta3
+XTerm*color5:		#b16286
+
+!! Cyan3
+XTerm*color6:		#689d6a
+
+!! Gray90
+XTerm*color7:		#a89984
+
+!! Gray50
+XTerm*color8:		#928374
+
+!! Red
+XTerm*color9:		#fb4934
+
+!! Green
+XTerm*color10:		#b8bb26
+
+!! Yellow
+XTerm*color11:		#fabd2f
+
+!! Blue
+XTerm*color12:		#83a598
+
+!! Magenta
+XTerm*color13:		#d3869b
+
+!! Cyan
+XTerm*color14:		#8ec07c
+
+!! White
+XTerm*color15:		#ebdbb2
 
 !! Terminal (ST) Theming
 
@@ -25,20 +71,52 @@ st.font: Monospace-12;
 !! st.foreground: black
 !! st.cursorColor: white
 
-!! Colors
+!! Gruvbox Backup
+!
+!! Black
 st.color0: #161616
+
+!! Red3
 st.color1: #cc241d
+
+!! Green3
 st.color2: #98971a
+
+!! Yellow3
 st.color3: #d79921
+
+!! Blue2
 st.color4: #458588
+
+!! Magenta3
 st.color5: #b16286
+
+!! Cyan3
 st.color6: #689d6a
+
+!! Gray90
 st.color7: #a89984
+
+!! Gray50
 st.color8: #928374
+
+!! Red
 st.color9: #fb4934
+
+!! Green
 st.color10: #b8bb26
+
+!! Yellow
 st.color11: #fabd2f
+
+!! Blue
 st.color12: #83a598
+
+!! Magenta
 st.color13: #d3869b
+
+!! Cyan
 st.color14: #8ec07c
+
+!! White
 st.color15: #ebdbb2

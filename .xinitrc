@@ -48,5 +48,13 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-xrandr --output DP-1 --primary --mode 1920x1080 --set "Broadcast RGB" "Full" --output HDMI-1 --off &
-exec openbox-session
+#xsetroot -cursor_name left_ptr &
+xrandr --output DP-1 --primary --mode 1920x1080 --set "Broadcast RGB" "Full" --output HDMI-1 --off
+picom -b &
+xwallpaper --stretch ~/Pictures/defwall.jpg &
+dunst &
+lxpolkit &
+sxhkd &
+.local/bin/statusbar.sh &
+exec /usr/local/bin/dwm
+#exec bspwm
