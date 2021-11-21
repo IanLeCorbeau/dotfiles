@@ -1,9 +1,8 @@
 #!/bin/bash
 
-CHOICE=$(echo -e "Logout\nShutdown\nReboot" | dmenu -p ?)
+CHOICE=$(echo -e "Shutdown\nReboot" | dmenu -p ? -h 24)
 
 case "$CHOICE" in
-	Logout) openbox --exit & ;;
 	Shutdown) systemctl poweroff & ;;
 	Reboot) systemctl reboot & ;;
 esac
