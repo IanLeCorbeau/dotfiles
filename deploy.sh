@@ -21,7 +21,7 @@ install_pkgs() {
 enable_firewall() {
 	echo
 	printf '%s\n' "Enabling firewall" && sleep 1
-	ufw enable
+	sudo ufw enable
 }
 
 make_userdirs() {
@@ -31,6 +31,7 @@ make_userdirs() {
 get_sl_tools() {
 	echo
 	printf '%s\n' "Getting custom Suckless tools repositories" && sleep 1
+	mkdir -p "$SRC_DIR"
 	cd "$SRC_DIR" || exit
 	git clone "$GIT_SRC"/dwm.git
 	git clone "$GIT_SRC"/dmenu.git
@@ -42,19 +43,19 @@ install_dwm() {
 	printf '%s\n' "Building and installing custom Suckless tools" && sleep 1
 	cd "$SRC_DIR"/dwm || exit
 	make
-	make clean install
+	sudo make clean install
 }
 
 install_dmenu() {
 	cd "$SRC_DIR"/dmenu || exit
 	make
-	make clean install
+	sudo make clean install
 }
 
 install_st() {
 	cd "$SRC_DIR"/st || exit
 	make
-	make clean install
+	sudo make clean install
 }
 
 get_dotfiles() {
