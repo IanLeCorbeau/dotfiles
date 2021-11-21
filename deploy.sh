@@ -81,7 +81,6 @@ deploy_dotfiles() {
 
 set_permissions() {
 	printf '%s\n' "Setting permissions" && sleep 1
-	chmod u+x .xinitrc
 	cd ~/.local/bin || exit
 	for file in chwall-dmenu mpvload netcon poweroffreboot statusbar.sh usbmount usbunmount usbpoweroff ; do chmod u+x "$file" ; done
 }
