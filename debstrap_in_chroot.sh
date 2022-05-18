@@ -6,9 +6,9 @@
 ## script to fail 3/4 of the way through because of something inconsequential.
 #set -e
 
-INITSYS=systemd
-HOSTNAME=ragnarok
-USERNAME=lecorbeau
+INITSYS=
+HOSTNAME=
+USERNAME=
 
 upd_repo() {
 	printf '%s\n' "Updating apt repository" && sleep 1
