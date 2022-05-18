@@ -6,8 +6,8 @@
 # Using a few variables for convenience
 DEVICE=$1
 BOOTMODE=$2
-SWAPSPACE=1
-ROOTSPACE=8
+SWAPSPACE=
+ROOTSPACE=
 HOMESPACE=
 
 ## 'set -e' should really only be enabled for debugging purposes. Though it might seem
