@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# A small script to quickly generate a list of checksums of the files in a directory, to use with OpenBSD's signify
+# It then verifies the signatures to make sure the process was successful..
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#											#
+#	Copyright (c) 2022, Ian LeCorbeau <I-LeCorbeau (at) protonmail (dot) com>	#
+#											#
+#	Permission to use, copy, modify, and/or distribute this software for any	#
+#	purpose with or without fee is hereby granted, provided that the above		#
+#	copyright notice and this permission notice appear in all copies.		#
+#											#
+#	THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES	#
+#	WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF		#
+#	MERCHANTABILITY AND FITNESS IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR		#
+#	ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES		#
+#	WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN		#
+#	ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF		#
+#	OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.			#
+#											#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Ignore shellcheck's SC2035 warning. We most definitely need to use only '*'.
+# shellcheck disable=SC2035
+
+usage() {
+	printf '%s\n' "You must provide the full directory path as argument 1,
+the full path to the .sec key in argument 2, and the full path to the .pub key in argument 3.
+NOTE: this script will cd into the directory specified in arg 1, so adjust the paths in args
+2 and 3 accordingly."
+}
+
+signify() {
+	/usr/bin/signify-openbsd "$@"	# for distributions that package as 'signify-openbsd
+	#/usr/bin/signify "$@"		# for distributions that package as 'signify'
+}
+
+do_gen() {
+	_dir=$1
+	_seckey=$2
+	_pubkey=$3
+
+	# cd to dir
+	cd "$_dir" || exit
+
+	# Generate a BSD style checksum
+	/usr/bin/sha256sum --tag * > SHA256
+
+	# Sign the files
+	signify -S -s "$_seckey" -m SHA256
+
+	# Copy the sums to SHA256.sig
+	/usr/bin/cat SHA256 >> SHA256.sig
+
+	# Verify for good measure
+	signify -C -p "$_pubkey" -x SHA256.sig
+}
+
+if [ -z "$1" ] && [ -z "$2" ] && [ -z "$3" ]; then
+	usage
+else
+	do_gen "$1" "$2" "$3"
+fi
