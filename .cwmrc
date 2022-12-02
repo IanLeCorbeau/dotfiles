@@ -3,9 +3,6 @@
 # Sticky groups: uncomment to enable worskpace-like behavior
 sticky			yes
 
-# Enbale monocle mode (windows open maximized by default)
-monocle			yes
-
 # Default font
 fontname		"spleen:pixelsize=14:bold"
 
