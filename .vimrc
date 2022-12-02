@@ -25,3 +25,5 @@ set showmatch
 set incsearch
 set mouse=a
 set number
+
+vnoremap <C-C> :w !xclip -sel c <CR><CR>

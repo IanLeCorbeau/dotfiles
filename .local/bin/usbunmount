@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DRIVES=$(lsblk -lp | grep "part $1" | awk '{print $1, "(" $4 ")"}' | dmenu -p unmount)
+DRIVES=$(lsblk -lp | awk '/part/ {print $1, "(" $4 ")"}' | dmenu -p unmount -h 24)
 
 for i in ${DRIVES}; do
 	udisksctl unmount -b $i
