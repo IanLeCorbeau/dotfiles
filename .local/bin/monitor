@@ -1,9 +1,10 @@
 #!/bin/sh
 
-CHOICE=$(echo -e "PC\nTV\nDual" | dmenu -p Monitor)
+CHOICE=$(printf '%s\n' "PC" "TV" "Dual-Left" "Dual-Right" | dmenu -p Monitor -h 24)
 
 case "$CHOICE" in
-	PC) xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-1 --off & ;;
-	TV) xrandr --output HDMI-1 --primary --mode 1360x768 --output DP-1 --off & ;;
-	Dual) xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-1 --mode 1360x768 --left-of DP-1 & ;;
+	PC) xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-1 --off ;;
+	TV) xrandr --output HDMI-1 --primary --mode 1360x768 --output DP-1 --off ;;
+	Dual-left) xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-1 --mode 1360x768 --left-of DP-1 ;;
+	Dual-Right) xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-1 --mode 1360x768 --right-of DP-1 ;;
 esac	

@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/bin/sh
+
+# This works with elogind. FOr systems with systemd, the script is
+# poweroffreboot_systemd
 
 CHOICE=$(echo -e "Shutdown\nReboot" | dmenu -p ? -h 24)
 
 case "$CHOICE" in
-	Shutdown) systemctl poweroff & ;;
-	Reboot) systemctl reboot & ;;
+	Shutdown) loginctl poweroff & ;;
+	Reboot) loginctl reboot & ;;
 esac
 		

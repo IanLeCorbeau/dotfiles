@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 notify-send -t 3000 "Playing Video" "$(xclip -o)";
-mpv --ytdl-format=22 "$(xclip -o)"
+mpv --ytdl-format=22 "$(xclip -o)" &
