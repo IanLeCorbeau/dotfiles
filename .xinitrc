@@ -58,3 +58,4 @@ sxhkd &
 .local/bin/statusbar.sh &
 exec /usr/local/bin/dwm
 #exec bspwm
+#exec /usr/bin/cwm
