@@ -229,8 +229,8 @@ filetype {*.html,*.htm},<text/html> links, lynx
 filetype {*.o},<application/x-object> nm %f | less
 
 " Man page
-filetype {*.[1-8]},<text/troff> man ./%c
-fileviewer {*.[1-8]},<text/troff> man ./%c | col -b
+filetype {*.[1-8]},<text/troff> mman ./%c | less
+fileviewer {*.[1-8]},<text/troff> mman ./%c | col -b
 
 " Images
 filextype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
