@@ -88,9 +88,9 @@ bind-key 4M-k window-snap-up
 bind-key 4M-l window-snap-right
 
 bind-key 4M-m menu-window
-bind-key 4-g menu-group
-bind-key 4-a menu-cmd
-bind-key 4-e menu-exec
+bind-key 4M-g menu-group
+bind-key 4M-a menu-cmd
+bind-key 4M-e menu-exec
 
 # Autogroup some apps
 autogroup 1	"st,st"
