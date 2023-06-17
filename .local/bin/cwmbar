@@ -1,0 +1,169 @@
+#!/bin/sh
+
+# cwmbar, by Ian LeCorbeau.
+
+# Depends on: lemonbar, wmutils core, wmctrl and fonts-spleen.
+
+_font="-misc-spleen-medium-*-normal-*-16-160-72-72-c-80-iso10646-1"
+
+_w=$(wattr w "$(lsw -r)")	# bar width. Defaults to width of root window
+_h="24"				# bar height.
+_x=$(wattr x "$(lsw -r)")	# bar X position
+_y=$(wattr y "$(lsw -r)")	# bar y position
+
+_colbg="#242424"		# background color
+_colfg1="%{F#458588}"		# foreground color 1
+_colfg2="%{F#dddddd}"		# foreground color 2
+
+# Show name of the group we're in
+group() {
+	_group=$(xprop -root 32c '\t$0' _NET_CURRENT_DESKTOP | cut -f 2)
+
+	# Setup group names
+	case "$_group" in
+		1)	group_name="term"
+			;;
+		2)	group_name="files"
+			;;
+		3)	group_name="www"
+			;;
+		4)	group_name="mail"
+			;;
+		5)	group_name="txt"
+			;;
+		6)	group_name="img"
+			;;
+		7)	group_name="vid"
+			;;
+		8)	group_name="vm"
+			;;
+		9)	group_name="misc"
+			;;
+	esac
+
+	printf '%s' "%{B#458488}%{F#242424} $group_name %{B-}${_colfg1}"
+}
+
+# Show number of windows opened in total.
+winnum() {
+	# _num messes the output when there are no window. Needs fixing, not
+	# using for now.
+	#_num=$(wmctrl -l | grep -n "$(pfw 2>/dev/null)" | cut -f1 -d ':')
+	_winnum=$(wmctrl -l | wc -l)
+
+	printf '%s' "${_colfg1}[$_winnum]:"
+}
+
+# Show window number/total number of windows and the name of currently
+# focused window
+win() {
+	# Can't use pfw directly because sometimes the focus is lost.
+	# Instead, get the id of the last window in lsw's output, which
+	# will always be the currently focused window.
+	#
+	# Sed is used to transform firefox's double hyphens into real '--'
+	# or else it displays them as %G%@.
+	_wid=$(lsw | grep -n "$(lsw | wc -l)" | cut -f2 -d ':') 
+	_win=$(atomx WM_NAME "$_wid" | sed 's/%G—%@/--/g')
+
+	if [ -z "$_win" ]; then
+		printf " "
+	else
+		# Trim window title if it exceeds 75 chars
+		if [ "${#_win}" -gt "75" ]; then
+			printf '%.75s...' "${_colfg2}$_win"
+		else
+			printf '%s' "${_colfg2}$_win"
+		fi
+	fi
+}
+
+# Same as winnum(), but outputs to the right, with different formatting.
+wnum() {
+	_winnum=$(wmctrl -l | wc -l)
+
+	printf '%s' "${_colfg1}wins: ${_colfg2}$_winnum"
+}
+
+# Show ram usage
+ram() {
+	mem=$(free -h | awk '/Mem:/ { print $3 }' | cut -f1 -d 'i')
+	echo "${_colfg1}mem: ${_colfg2}$mem"
+}
+
+# Show cpu load
+cpu() {
+	read -r cpu a b c previdle rest < /proc/stat
+	prevtotal=$((a+b+c+previdle))
+	sleep 0.5
+	read -r cpu a b c idle rest < /proc/stat
+	total=$((a+b+c+idle))
+	cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
+	echo "${_colfg1}cpu: ${_colfg2}${cpu}%"
+}
+
+# Network connection status
+network() {
+	conntype=$(ip route | awk '/default/ { print substr($5,1,1) }')
+
+	if [ -z "$conntype" ]; then
+		echo "${_colfg1}net: ${_colfg2}down"
+	elif [ "$conntype" = "e" ]; then
+		echo "${_colfg1}wired: ${_colfg2}up"
+	elif [ "$conntype" = "w" ]; then
+		echo "${_colfg1}wifi: ${_colfg2}up"
+	fi
+}
+
+# Volume level for systems with pulseaudio. Replace $(volume_alsa) in
+# status() in order to use this one.
+volume_pa() {
+	muted=$(pactl list sinks | awk '/Mute:/ { print $2 }')
+	vol=$(pactl list sinks | grep Volume: | awk 'FNR == 1 { print $5 }' | cut -f1 -d '%')
+
+	if [ "$muted" = "yes" ]; then
+		echo "vol: muted"
+	else
+		echo "vol: ${vol}%"
+	fi
+
+}
+
+# Volume level for systems using pure Alsa. The default.
+volume_alsa() {
+
+	mono=$(amixer -M sget Master | grep Mono: | awk '{ print $2 }')
+
+	if [ -z "$mono" ]; then
+		muted=$(amixer -M sget Master | awk 'FNR == 6 { print $7 }' | sed 's/[][]//g')
+		vol=$(amixer -M sget Master | awk 'FNR == 6 { print $5 }' | sed 's/[][]//g; s/%//g')
+	else
+		muted=$(amixer -M sget Master | awk 'FNR == 5 { print $6 }' | sed 's/[][]//g')
+		vol=$(amixer -M sget Master | awk 'FNR == 5 { print $4 }' | sed 's/[][]//g; s/%//g')
+	fi
+
+	if [ "$muted" = "off" ]; then
+		echo "${_colfg1}vol: ${_colfg2}muted"
+	else
+		echo "${_colfg1}vol: ${_colfg2}${vol}%"
+	fi
+}
+
+# Date and time
+clock() {
+	dte=$(date +"%D")
+	time=$(date +"%H:%M")
+
+	echo "${_colfg1}$dte ${_colfg2}$time"
+}
+
+# Draw the status
+status() {
+	while true; do
+		echo " %{l}$(group) $(winnum) $(win) %{r}$(ram) | $(cpu) | $(network) | $(volume_alsa) | $(clock) " 
+		sleep 2
+	done
+}
+
+# Pipe status to lemonbar
+status | lemonbar -p -d -B "${_colbg}" -g "$_w"x"$_h"+"$_x"+"$_y" -f "$_font"
