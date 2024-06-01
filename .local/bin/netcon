@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 CHOICE=$(/usr/bin/printf '%s\n' "Up" "Down" | /usr/local/bin/dmenu -p Network -h 24)
 
 case "$CHOICE" in
-	Up) /usr/bin/sudo /usr/sbin/ifup enp1s0 && notify-send "Network Connected" ;;
-	Down) /usr/bin/sudo /usr/sbin/ifdown enp1s0 && notify-send "Network Disconnected";;
+	Up) /usr/bin/doas /usr/sbin/ifup enp1s0 && notify-send "Network Connected" ;;
+	Down) /usr/bin/doas /usr/sbin/ifdown enp1s0 && notify-send "Network Disconnected";;
 esac
