@@ -1,11 +1,11 @@
-cattoless() {
-	/usr/bin/cat "$1" | /usr/bin/less;
-}
-
-alias check='cattoless'
-
+alias man='mman'
 alias tshell='tmux new-session -s shell'
 alias tmail='tmux new-session -s mail'
 alias ttext='tmux new-session -s text'
+alias tdev='tmux new-session -s dev'
+alias tvirt='tmux new-session -s vm'
 alias cls='clear'
 alias bye='exit'
+alias ci='ci -wlecorbeau'
+alias co='co -wlecorbeau'
+alias rdev='cd ~/.local/src/ragnarok'
