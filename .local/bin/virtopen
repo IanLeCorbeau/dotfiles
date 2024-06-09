@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Quickly start and open VM in console with virsh.
+
+VM=$1
+
+virsh --connect qemu:///session start "$VM" && \
+	virsh console "$VM" --safe
