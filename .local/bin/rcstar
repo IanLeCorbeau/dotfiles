@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Create a tarball with RCS directories.
+#
+# Usage:
+# 	$ rcstar <directory>
+#
+# This will create a tarball with all RCS dirs/subdirs/files inside
+# <directory>.
+
+_date=$(date +"%Y%m%d%H%M%S")
+_dir=$1
+
+tar czvf "$_dir"-"$_date".tgz $(find "$_dir" -name '*RCS*')
