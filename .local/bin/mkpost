@@ -1,0 +1,24 @@
+#!/bin/ksh
+
+# Convert markdown file to html and insert in a template html file.
+
+_tmpldir="templates"
+_template="${_tmpldir}/${1}"
+_md="${2}"
+_output="${_md%.md}"
+
+# Distros package the markdown binary under different names. Use the
+# right one depending on which one is available.
+mdcmd() {
+	local _f=$1 _output=$2
+
+	if command -v /usr/bin/Markdown.pl >/dev/null 2>&1; then
+		/usr/bin/Markdown.pl --html4tags "$@"
+	else
+		/usr/bin/markdown --html4tags "$@"
+	fi
+}
+
+/usr/bin/cp "${_template}" "${_output}.html"
+mdcmd "${_md}" | sed -i '/@INSERT_HERE@/r/dev/stdin' "${_output}.html"
+/usr/bin/sed -i '/@INSERT_HERE@/d' "${_output}.html"
