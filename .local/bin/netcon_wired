@@ -1,0 +1,9 @@
+#!/bin/sh
+
+CHOICE=$(/usr/bin/printf '%s\n' "Up" "Down" | /usr/bin/dmenu -p Network -h 24)
+
+# Replace "<INTERFACE>" with your interface (e.g. enp1s0) before using.
+case "$CHOICE" in
+	Up) /usr/bin/doas /usr/bin/ip link set "<INTERFACE>" up && notify-send "Network Connected" ;;
+	Down) /usr/bin/doas /usr/bin/ip link set "<INTERFACE>" down && notify-send "Network Disconnected";;
+esac

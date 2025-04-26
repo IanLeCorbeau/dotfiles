@@ -1,0 +1,8 @@
+#!/bin/bash
+
+CHOICE=$(/usr/bin/printf '%s\n' "Up" "Down" | /usr/bin/dmenu -p Network -h 24)
+
+case "$CHOICE" in
+	Up) /usr/bin/doas /usr/bin/wpa_cli reconnect && notify-send "Network Connected" ;;
+	Down) /usr/bin/doas /usr/bin/wpa_cli disconnect && notify-send "Network Disconnected";;
+esac
