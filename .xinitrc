@@ -48,14 +48,26 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+WM="crowm"
+
 #xsetroot -cursor_name left_ptr &
-xrandr --output DP-1 --primary --mode 1920x1080 --set "Broadcast RGB" "Full" --output HDMI-1 --off
+if [ "$(xrandr | awk '/HDMI-2/ { print $2 }')" = "disconnected" ]; then
+	xrandr --output DP-1 --primary --mode 1920x1080 --set "Broadcast RGB" "Full" --output HDMI-2 --off
+else
+	xrandr --output DP-1 --primary --mode 1920x1080 --output HDMI-2 --mode 1360x768 --right-of DP-1
+fi
+setxkbmap ca
 picom -b &
-xwallpaper --stretch ~/Pictures/defwall.jpg &
+hsetroot -fill /home/i/Pictures/defwall.jpg
 dunst &
-lxpolkit &
+#lxpolkit &
 sxhkd &
-.local/bin/statusbar.sh &
-exec /usr/local/bin/dwm
-#exec bspwm
-#exec /usr/bin/cwm
+exec /usr/bin/crowm
+case "$WM" in
+	crowm)	.local/bin/launch &
+		exec /usr/bin/crowm
+		;;
+	raven)	.local/bin/statusbar.sh &
+		exec /usr/bin/raven
+		;;
+esac
