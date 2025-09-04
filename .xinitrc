@@ -58,7 +58,7 @@ else
 fi
 setxkbmap ca
 picom -b &
-hsetroot -fill /home/i/Pictures/defwall.jpg
+hsetroot -fill "$HOME"/Pictures/defwall.jpg
 dunst &
 #lxpolkit &
 sxhkd &
